@@ -4,6 +4,7 @@ const { promisify } = require('util');
 const { URL } = require('url');
 const basicAuth = require('basic-auth');
 
+const userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36";
 
 const serverAddress = "127.0.0.1";
 const serverPort = 8525;
@@ -164,7 +165,7 @@ app.get('/url/*', auth, async (req, res) => {
     // TODO: Test Lynx Works Fine
     // TODO: Test at least 1 Tor Random Address is reachable
     try {
-      response = await run(`lynx -socks5_proxy=127.0.0.1:9050 --dump '${forceProtocol(requestedUrl)}'`);
+      response = await run(`lynx -useragent='${userAgent}' -socks5_proxy=127.0.0.1:9050 --dump '${forceProtocol(requestedUrl)}' 2>/dev/null`);
       response = textToHtml(response, requestedUrl);
     } catch (err) {
       try {
@@ -201,7 +202,7 @@ app.get('/insecure/*', auth, async (req, res) => {
     // TODO: Test Lynx Works Fine
     // TODO: Test at least 1 Tor Random Address is reachable
     try {
-      response = await run(`lynx -socks5_proxy=127.0.0.1:9050 --source '${forceProtocol(requestedUrl)}'`);
+      response = await run(`lynx -useragent='${userAgent}' -socks5_proxy=127.0.0.1:9050 --source '${forceProtocol(requestedUrl)}' 2>/dev/null`);
       const urlRegex = /(?:href|src)="(http[s]?:\/\/[^"]*)"/g;
       let updatedResponse = response.replace(urlRegex, (match, url) => {
         return match.replace(url, `http://${serverAddress}:${serverPort}/insecure/${url}`);
