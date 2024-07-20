@@ -1,6 +1,9 @@
 # Tor2Text
 View .Onion or regular Webpages In Your Normal Browser Without revealing your real IP or data about your browser. No browser configuration. Compatible With All Browsers.
 
+[![Tor2Text](https://img.youtube.com/vi/HNmHtUO6tF4/hqdefault.jpg)](https://www.youtube.com/watch?v=HNmHtUO6tF4)
+
+
 
 ### WHY?
 - Use Tor on any browser with zero configuration.
